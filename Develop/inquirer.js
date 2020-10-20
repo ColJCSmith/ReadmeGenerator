@@ -48,10 +48,12 @@ var questions = [
     }
 ]
 inquirer.prompt(questions).then((answers) => {
-    const answersJSON = JSON.stringify(answers, null, '#  ')
-    console.log(answersJSON);
+    const answersText = generateMD(answers);
+    const readmeTitle = answers.projectTitle + '.md';
+    console.log(answersText);
 
-    fs.writeFile("README2.md", answersJSON, function (err) {
+
+    fs.writeFile(readmeTitle, answersText, function (err) {
         if (err) {
             throw err;
         }
@@ -59,19 +61,25 @@ inquirer.prompt(questions).then((answers) => {
     })
 });
 
-// function generateMD(answers) {
-//     return `
-//     ${answers.projectTitle}
-//     ${answers.projectDescription}
-//     ${answers.projectInstall}
-//     ${answers.projectUsage}
-//     ${answers.projectTest}
-//     ${answers.projectLicense}
-//     ${answers.GitHub}
-//     ${answers.email}`
-// }
+function generateMD(answers) {
+    return `
+## Description:
+# ${answers.projectDescription}
+# ${answers.projectInstall}
+# ${answers.projectUsage}
+# ${answers.projectTest}
+# ${answers.projectLicense}
+# ${answers.GitHub}
+# ${answers.email}`
+}
 
 // init();
 
+// const answersText = generateMD();
 
 //     fs.writeFile("README2.md", (("# " + answers.projectTitle) + '\n', ("## " + answers.projectDescription) + '\n', ("# " + answers.projectInstall) + '\n', ("## " + answers.projectUsage) + '\n', ("## " + answers.projectTest) + '\n', ("## " + answers.projectLicence) + '\n', ("## " + answers.projectGitHub) + '\n', ("## " + answers.projectEmail) + '\n'), function (err) {
+
+
+    // inquirer.prompt(questions).then((answers) => {
+    //     const answersText = JSON.stringify(answers, null, '#  ')
+    //     console.log(answersJSON);
