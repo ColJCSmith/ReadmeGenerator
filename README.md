@@ -107,3 +107,69 @@ You are required to submit the following:
 
 * The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
 
+
+
+
+
+## Working file generator:
+
+
+const fs = require("fs");
+const axios = require("axios");
+const inquirer = require('inquirer');
+
+console.log('Hi, welcome to todays fucking homework');
+
+var questions = [
+    {
+        type: "input",
+        name: "projectTitle",
+        message: "What is your project called?"
+    },
+    {
+        type: "input",
+        name: "projectDescription",
+        message: "Where are your project about?"
+    },
+    {
+        type: "input",
+        name: "projectInstall",
+        message: "How should this project be installed?"
+    },
+    {
+        type: "input",
+        name: "projectUsage",
+        message: "What usage information should be inclued?"
+    },
+    {
+        type: "input",
+        name: "projectTest",
+        message: "How should the project be tested?"
+    },
+    {
+        type: "input",
+        name: "projectLicense",
+        message: "Which licences do you want to add?"
+    },
+    {
+        type: "input",
+        name: "GitHub",
+        message: "Enter your GitHub username."
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "Enter your email address."
+    }
+]
+inquirer.prompt(questions).then((answers) => {
+    console.log(JSON.stringify(answers, null, '  '));
+
+
+    fs.writeFile("README2.md", ("# " + answers.projectTitle) + '\n', function (err) {
+        if (err) {
+            console.log(err);
+        }
+        console.log("Success!");
+    })
+});

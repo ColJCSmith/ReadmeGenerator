@@ -2,7 +2,7 @@ const fs = require("fs");
 const axios = require("axios");
 const inquirer = require("inquirer");
 const util = require("util");
-const MarkdownIt = require('markdown-it'),
+const MarkdownIt = require('markdown-it');
 
 const writeFileAsync = util.promisify(fs.writeFile);
 
@@ -10,7 +10,6 @@ const writeFileAsync = util.promisify(fs.writeFile);
 
 function promptUser() {
     return inquirer.prompt([
-        // const questions = [
         {
             type: "input",
             name: "projectTitle",
@@ -54,41 +53,43 @@ function promptUser() {
     ]
     );
 };
+
+
 // function to write README file
 
-inquirer.prompt(questions).then(Response => {
+// inquirer.prompt().then(Response => {
 
-    fs.appendFileSync("README2.md", ("# " + Response.projectTitle) + '\n', function (err) {
-        if (err) {
-            console.log(err);
-        }
-        console.log("Success!");
-    })
-})
-function generateHTML(answers) {
-    return `
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <title>Document</title>
-  </head>
-  <body>
-    <div>
-    <p>${answers.projectTitle}</p>
-    <p>${answers.projectDescription}</p>
-    <p>${answers.projectInstall}</p>
-    <p>${answers.projectUsage}</p>
-    <p>${answers.projectTest}</p>
-    <p>${answers.projectLicense}</p>
-    <p>${answers.GitHub}</p>
-    <p>${answers.email}</p>
-  </div>
-  </body>
-  </html>`;
-}
+//     fs.appendFileSync("README2.md", ("# " + Response.projectTitle) + '\n', function (err) {
+//         if (err) {
+//             console.log(err);
+//         }
+//         console.log("Success!");
+//     })
+// })
+// function generateHTML(answers) {
+//     return `
+//   <!DOCTYPE html>
+//   <html lang="en">
+//   <head>
+//     <meta charset="UTF-8">
+//     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+//     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+//     <title>Document</title>
+//   </head>
+//   <body>
+//     <div>
+//     <p>${answers.projectTitle}</p>
+//     <p>${answers.projectDescription}</p>
+//     <p>${answers.projectInstall}</p>
+//     <p>${answers.projectUsage}</p>
+//     <p>${answers.projectTest}</p>
+//     <p>${answers.projectLicense}</p>
+//     <p>${answers.GitHub}</p>
+//     <p>${answers.email}</p>
+//   </div>
+//   </body>
+//   </html>`;
+// }
 
 // function to initialize program
 async function init() {
@@ -107,6 +108,3 @@ async function init() {
 }
 // function call to initialize program
 init();
-
-md = new MarkdownIt();
-let result = md.render('# markdown-it rulezz!');
