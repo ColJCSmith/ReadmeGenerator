@@ -3,7 +3,7 @@ const fs = require("fs");
 const axios = require("axios");
 const inquirer = require('inquirer');
 
-console.log('Hi, welcome to todays fucking homework');
+console.log('Hi, welcome to todays homework');
 
 var questions = [
     {
@@ -24,7 +24,7 @@ var questions = [
     {
         type: "input",
         name: "projectUsage",
-        message: "What usage information should be inclued?"
+        message: "What usage information should be included?"
     },
     {
         type: "input",
@@ -32,9 +32,10 @@ var questions = [
         message: "How should the project be tested?"
     },
     {
-        type: "input",
-        name: "projectLicense",
-        message: "Which licences do you want to add?"
+        type: 'list',
+        name: 'projectLicense',
+        message: 'Which licences do you want to add?',
+        choices: ['GNU', 'Apache Licence 2.0', 'BSD', 'MIT'],
     },
     {
         type: "input",
@@ -44,14 +45,13 @@ var questions = [
     {
         type: "input",
         name: "email",
-        message: "Enter your email address."
+        message: "Enter your email address for any queries."
     }
 ]
 inquirer.prompt(questions).then((answers) => {
     const answersText = generateMD(answers);
     const readmeTitle = answers.projectTitle + '.md';
     console.log(answersText);
-
 
     fs.writeFile(readmeTitle, answersText, function (err) {
         if (err) {
@@ -63,23 +63,17 @@ inquirer.prompt(questions).then((answers) => {
 
 function generateMD(answers) {
     return `
-## Description:
-# ${answers.projectDescription}
-# ${answers.projectInstall}
-# ${answers.projectUsage}
-# ${answers.projectTest}
-# ${answers.projectLicense}
-# ${answers.GitHub}
-# ${answers.email}`
+# Description:
+${answers.projectDescription}
+# Installation instructions:
+${answers.projectInstall}
+# Project Usage:
+${answers.projectUsage}
+# Test instructions:
+${answers.projectTest}
+# Licences:
+${answers.projectLicense}
+# Questions:
+${answers.GitHub}
+[${answers.email}](mailto:${answers.email})`
 }
-
-// init();
-
-// const answersText = generateMD();
-
-//     fs.writeFile("README2.md", (("# " + answers.projectTitle) + '\n', ("## " + answers.projectDescription) + '\n', ("# " + answers.projectInstall) + '\n', ("## " + answers.projectUsage) + '\n', ("## " + answers.projectTest) + '\n', ("## " + answers.projectLicence) + '\n', ("## " + answers.projectGitHub) + '\n', ("## " + answers.projectEmail) + '\n'), function (err) {
-
-
-    // inquirer.prompt(questions).then((answers) => {
-    //     const answersText = JSON.stringify(answers, null, '#  ')
-    //     console.log(answersJSON);
