@@ -31,6 +31,11 @@ var questions = [
         message: "How should the project be tested?"
     },
     {
+        type: "input",
+        name: "projectContribute",
+        message: "How can others contribute to this project?"
+    },
+    {
         type: 'list',
         name: 'projectLicense',
         message: 'Which licences do you want to add?',
@@ -100,8 +105,9 @@ ${licenceBadge}
 2. [Installation instructions](##-installation-instructions:)
 3. [Project Usage](##-project-usage:)
 4. [Test instructions](##-test-instructions:)
-5. [Licences](##-licences:)
-6. [Questions?](##-for-any-questions:)
+5. [Contributions](##-contributions:) 
+6. [Licences](##-licences:)
+7. [Questions?](##-for-any-questions:)
 ## Description:
 ${answers.projectDescription}
 ## Installation instructions:
@@ -110,10 +116,12 @@ ${answers.projectInstall}
 ${answers.projectUsage}
 ## Test instructions:
 ${answers.projectTest}
+## Contributions:
+${answers.projectContribute}
 ## Licences:
-'More information on the ${answers.projectLicense} licence can be found here: ${licenceLink}
+More information on the ${answers.projectLicense} licence can be found here: ${licenceLink}
 ## For any questions:
-[GitHub/${answers.GitHub}] (https://www.github.com/${answers.GitHub})<br>
+GitHub/${answers.GitHub} https://www.github.com/${answers.GitHub}<br>
 email: ${answers.email}
 `
     }
