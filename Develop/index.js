@@ -49,7 +49,9 @@ var questions = [
     }
 ]
 inquirer.prompt(questions).then((answers) => {
-    const answersText = generateMD(answers);
+    const licenceBadge = generateBadge(answers);
+    const licenceLink = generateLink(answers);
+    const answersText = generateMD({ ...answers, licenceBadge, licenceLink });
     const readmeTitle = answers.projectTitle + '.md';
     console.log(answersText);
 
@@ -59,21 +61,53 @@ inquirer.prompt(questions).then((answers) => {
         }
         console.log("Success!");
     })
-});
 
-function generateMD(answers) {
-    return `
-# Description:
+    function generateBadge(answers) {
+        if (answers.projectLicense == "GNU") {
+            return '![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)'
+        }
+        else if (answers.projectLicense == "Apache Licence 2.0") {
+            return '![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)'
+        }
+        else if (answers.projectLicense == "BSD") {
+            return '![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)'
+        }
+        else {
+            return '![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)'
+        }
+    }
+
+    function generateLink(answers) {
+        if (answers.projectLicense == "GNU") {
+            return '<https://www.gnu.org/licenses/gpl-3.0>'
+        }
+        else if (answers.projectLicense == "Apache Licence 2.0") {
+            return '<https://opensource.org/licenses/Apache-2.0>'
+        }
+        else if (answers.projectLicense == "BSD") {
+            return '<https://opensource.org/licenses/BSD-3-Clause>'
+        }
+        else {
+            return '<https://opensource.org/licenses/MIT>'
+        }
+    }
+
+    function generateMD(answers) {
+        return `
+${licenceBadge}
+## Description:
 ${answers.projectDescription}
-# Installation instructions:
+## Installation instructions:
 ${answers.projectInstall}
-# Project Usage:
+## Project Usage:
 ${answers.projectUsage}
-# Test instructions:
+## Test instructions:
 ${answers.projectTest}
-# Licences:
-${answers.projectLicense}
-# For any questions:
-<https://www.github.com/${answers.GitHub}>
-<https://mailto:${answers.email}>`
-}
+## Licences:
+'More information on the ${answers.projectLicense} licence can be found here: ${licenceLink}
+## For any questions:
+GitHub/${answers.GitHub} (https://www.github.com/${answers.GitHub})
+email: ${answers.email}
+`
+    }
+});
