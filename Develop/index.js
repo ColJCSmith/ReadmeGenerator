@@ -1,6 +1,5 @@
 
 const fs = require("fs");
-const axios = require("axios");
 const inquirer = require('inquirer');
 
 console.log('Hi, welcome to our fabulous README.md generator!');
@@ -48,6 +47,7 @@ var questions = [
         message: "Enter your email address for any queries."
     }
 ]
+
 inquirer.prompt(questions).then((answers) => {
     const licenceBadge = generateBadge(answers);
     const licenceLink = generateLink(answers);
@@ -95,6 +95,13 @@ inquirer.prompt(questions).then((answers) => {
     function generateMD(answers) {
         return `
 ${licenceBadge}
+## Table of contents:
+1. [Description](##-description:)
+2. [Installation instructions](##-installation-instructions:)
+3. [Project Usage](##-project-usage:)
+4. [Test instructions](##-test-instructions:)
+5. [Licences](##-licences:)
+6. [Questions?](##-for-any-questions:)
 ## Description:
 ${answers.projectDescription}
 ## Installation instructions:
@@ -106,7 +113,7 @@ ${answers.projectTest}
 ## Licences:
 'More information on the ${answers.projectLicense} licence can be found here: ${licenceLink}
 ## For any questions:
-GitHub/${answers.GitHub} (https://www.github.com/${answers.GitHub})
+[GitHub/${answers.GitHub}] (https://www.github.com/${answers.GitHub})<br>
 email: ${answers.email}
 `
     }
